@@ -1,0 +1,76 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+
+<center><h3>Detection of skin disease using deep learning</h3></center>
+
+<div class='divform'>
+	<center><h4>Upload Image or Enter URL</h4></center>
+
+<div class="row justify-content-center" style="padding-top: 20px;">
+    <div class="col-md-8">
+<form action = "" method = "post" enctype="multipart/form-data">
+  {% csrf_token %}
+  <div class="row">
+      <div class="col-2">
+      	<label id="pic">File:</label>
+      </div>
+      <div class="col-2">
+        <p id="pic" class="">{{ form.pic }} </p>
+      </div>
+  </div>
+
+  <div class="row">
+      <div class="col-2">
+      	<label id="url">URL:</label>
+      </div>
+      <div class="col-2">
+        <p id="url" class="">{{ form.url }} </p>
+      </div>
+  </div>
+
+  <input type="submit" value="Submit"  class="btn btn-success">
+</form>
+</div>
+</div>
+
+<div class="row justify-content-center" style="padding-top: 20px;">
+    <div class="col-md-8">
+    	<h4> Following Disease can be diagnosed</h4>
+    	<h6>Nevus, Basal Cell Carcinoma,Actinic Keratosis,Squamous Cell Carcinoma,Melanoma,Benign Keratosis lesions</h6>
+    </div>
+</div>
+
+<div class="row justify-content-center" style="padding-top: 20px;">
+   
+{% if pred == "None" %}
+{% else %}
+<h3> Results </h3>
+<center><strong>{{ disease }}</strong></center>
+<table>
+  <tr>
+    <th>Disease</th>
+    <th>Percentage</th> 
+  </tr>
+<br>
+{% for d,p in pred %}
+<tr>
+  <td>{{ d }}</td>
+  <td>{{ p }}</td>
+</tr>
+{% endfor %}
+</table>
+
+  <h3><center> Display Image </center></h3>
+<img src="{{ path }}" ,width="500" height="400">
+</center>	
+
+{% endif %}
+
+</div>
+
+
+
+
+{% endblock %}
